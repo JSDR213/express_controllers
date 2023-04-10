@@ -161,13 +161,13 @@ Touch a cats.js file and add this code in
 const cats = [
   { name: "Salem",
    color: "black", 
-   lovesLasanga: false },
+   lovesLasagna: false },
   { name: "Garfield", 
   color: "orange", 
-  lovesLasanga: true },
+  lovesLasagna: true },
   { name: "Heathcliff", 
   color: "orange", 
-  lovesLasanga: false },
+  lovesLasagna: false },
 ];
 
 module.exports = cats;
