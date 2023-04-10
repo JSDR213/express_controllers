@@ -101,7 +101,7 @@ Create a function called `getCats`, this function will accept a `request` and `r
 Send a `response` with the following:
 
 ```js
-const getCats = (request, response) => {
+const getCats = (req, res) => {
   res.send({
     message: 'Getting Cats'
   })
@@ -151,36 +151,54 @@ You should recieve a 200 status code and a JSON object:
 
 You've just successfully implemented your first controller function!
 
+
+Working with Exports, we can do A Lot of really  cool stuff with our JS, since we are able to encapsulate our code into different files, keeping each file clean and nice.
+
+Touch a cats.js file and add this code in
+
+```js
+
+const cats = [
+  { name: "Salem",
+   color: "black", 
+   lovesLasanga: false },
+  { name: "Garfield", 
+  color: "orange", 
+  lovesLasanga: true },
+  { name: "Heathcliff", 
+  color: "orange", 
+  lovesLasanga: false },
+];
+
+module.exports = cats;
+
+
+```
+
+Now that it has been exported, we can import it in by going to our catsController and requiring it, like this :
+
+```js
+const cats = require('../cats')
+```
+Because we are going out of our Controllers folder and back into our Root directory, we'll need to have the extra '.' in the path.
+Lets do a console.log(cats) to make sure our data is loaded up, and change our getCats function to have this data in :
+
+```js
+const getCats = (req, res) => {
+  res.send(cats)
+}
+```
+
+
 ## You Do
 
-You'll be creating your own controller functions, your work will be done in `CatController.js` and `app.js`. Once you create a function, don't forget to add it to our `module.exports`.
+You'll be creating your own controller functions, your work will be done in `CatController.js` and `server.js`. Once you create a function, don't forget to add it to our `module.exports`.
 
-- Create a controller function in `CatController.js` that takes in the `(req, res)` parameters and returns a JSON message: `Found Cat with an id of {whatever the id used}`. Create a `GET` route to get a cat by id `'/cats/:catId'` in `app.js`, and call its associated controller function that you **_exported_** from `CatController.js`.
+- Create a controller function in `CatController.js` that takes in the `(req, res)` parameters and returns a JSON object of just the individual cat, based off of the parameter used and the index of the cat in the array
 
-- In `CatController.js` create a function called `bothParams` that sends a response message of `"Getting {catName}, a cat with an id of {catId}."`. HINT: `console.log(req.params.catId, req.params.catName)`. Create a `GET` Route below all of your other routes in app.js, but just above the the app.listen for your PORT that has a path of `'/cats/:catName/details/:catId/'` and call your associated exported function. After this type in strange paths for multiple GET requests in Insomnia or Postman.
+- Create a dogs array with any properties you'd like to include about your dog objects, a dogsController.js file inside of your controllers folder, and run the same steps as the Cats in your server.js file. Remember, you'll need to export and require your array data, and your different controllers through their respective files!
 
-- Create a controller function called `getCatDetails`, it should return the information from the request's `query` parameters in a JSON message. Create a `GET` route with a path of `'/cats/details'` that calls this exported function. Use the following: `'/cats/details?catName={your cat name}&catAge={your cat age}'` in **Isomnia** to test your route.
 
-  Example Response:
-
-  ```json
-  {
-    "message": " My cats name is {whatever your cat name is}, he/she is {catAge} years old."
-  }
-  ```
-
-- Create a function called `createCatDetails` that returns the request body to your REST client. HINT: `console.log(req.body)` to check.
-  Create a `POST` route to display some information from the `request` body that calls this function.
-
-  Example:
-
-  ```json
-  {
-    "catName": "Billy",
-    "age": 12,
-    "breed": "mutt"
-  }
-  ```
 
 ## Recap
 
